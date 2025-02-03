@@ -6,7 +6,7 @@ import optax
 from flax.training import train_state
 
 from .config import GPT2Config
-from .data import dummy_data_loader
+from .data import data_loader
 from .model import GPT2Model
 
 
@@ -65,9 +65,7 @@ def train(num_steps=10, batch_size=4, seq_len=64, dataset_path="data/gpt2_train.
         print(f"Step {step}: Loss = {loss:.4f}, Time = {elapsed*1000:.2f} ms")
 
     # Final validation: run a forward pass in deterministic mode.
-    sample_inputs, _ = next(
-        dummy_data_loader(1, batch_size, seq_len, config.vocab_size)
-    )
+    sample_inputs, _ = next(data_loader(1, batch_size, seq_len, config.vocab_size))
     final_logits = model.apply(
         {"params": state.params}, sample_inputs, deterministic=True
     )
