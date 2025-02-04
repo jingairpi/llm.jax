@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from llm.data import data_loader, load_binary_data
+from llm.data import DataLoader, load_binary_data
 
 
 @pytest.fixture
@@ -21,10 +21,20 @@ def test_load_binary_data(sample_data_file):
 
 
 def test_data_loader(sample_data_file):
-    """Tests the data loader for correct batch shapes."""
+    """Tests the DataLoader for correct batch shapes."""
     batch_size, seq_len = 4, 64
-    loader = data_loader(sample_data_file, batch_size, seq_len)
+    loader = DataLoader(sample_data_file, batch_size, seq_len)
 
-    inputs, targets = next(loader)
-    assert inputs.shape == (batch_size, seq_len - 1), "Incorrect input shape"
-    assert targets.shape == (batch_size, seq_len - 1), "Incorrect target shape"
+    # Get the first batch
+    inputs, targets = next(iter(loader))
+    expected_shape = (batch_size, seq_len - 1)
+    assert (
+        inputs.shape == expected_shape
+    ), f"Incorrect input shape: expected {expected_shape}, got {inputs.shape}"
+    assert (
+        targets.shape == expected_shape
+    ), f"Incorrect target shape: expected {expected_shape}, got {targets.shape}"
+
+    # Verify that the targets are shifted versions of the inputs.
+    # (For example, if a batch row is [0, 1, 2, ... 62] then targets should be [1, 2, ... 63])
+    np.testing.assert_array_equal(inputs[0] + 1, targets[0])
