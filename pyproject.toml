@@ -3,26 +3,26 @@ name = "llm-jax"
 version = "0.1.0"
 description = "A JAX variant of llm.c"
 authors = [
-    {name = "Jing Ai",email = "jingairpi@gmail.com"}
+    { name = "Jing Ai", email = "jingairpi@gmail.com" }
 ]
-license = {text = "MIT"}
+license = { text = "MIT" }
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "transformers (>=4.48.2,<5.0.0)"
+    "transformers (>=4.48.2,<5.0.0)",
+    "jax>=0.5.0",
+    "jaxlib>=0.5.0",
+    "flax>=0.10.2",
+    "optax>=0.2.2",
+    "numpy>=1.24",
+    "pytest>=7.0.0"
 ]
 
 [tool.poetry]
-packages = [{include = "llm", from = "src"}]
+packages = [{ include = "llm", from = "src" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-jax = "^0.5.0"
-jaxlib = "^0.5.0"
-flax = "^0.10.2"
-optax = "^0.2.2"
-numpy = "^1.24"
-pytest = "^7.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.1.0"
