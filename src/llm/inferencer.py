@@ -4,9 +4,9 @@ import jax
 import jax.numpy as jnp
 
 
-class Inference:
+class Inferencer:
     """
-    A simple inference class for autoregressive text generation.
+    A simple inferencer class for autoregressive text generation.
     Given an initial prompt (token IDs) and a number of new tokens to generate,
     it iteratively runs the model to generate text.
     """
