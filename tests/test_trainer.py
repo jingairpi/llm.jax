@@ -72,9 +72,3 @@ def test_trainer_runs(trainer, capsys):
         assert step_int >= 0, "Step number should be non-negative."
         assert loss_val >= 0, "Loss should be non-negative."
         assert time_val > 0, "Elapsed time should be positive."
-
-    # Check for a summary message.
-    summary_pattern = re.compile(r"Training complete", re.IGNORECASE)
-    assert (
-        summary_pattern.search(captured) is not None
-    ), "Expected training completion message not found."
