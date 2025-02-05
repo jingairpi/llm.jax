@@ -3,7 +3,7 @@ import jax.numpy as jnp
 import pytest
 
 from llm.config import GPT2Config
-from llm.inference import Inference
+from llm.inferencer import Inferencer
 from llm.model import GPT2Model
 
 
@@ -32,15 +32,15 @@ def params(model, config):
     return model.init(rng, dummy_input)["params"]
 
 
-def test_inference_output_shape(model, config, params):
+def test_inferencer_output_shape(model, config, params):
     """
-    Test that Inference.generate produces an output sequence with the expected shape.
+    Test that Inferencer.generate produces an output sequence with the expected shape.
     For an initial prompt with shape (1, 1) and max_new_tokens=5,
     the output should have shape (1, 6).
     """
-    inference = Inference(model, config)
+    inferencer = Inferencer(model, config)
     initial_prompt = jnp.array([[1]], dtype=jnp.int32)  # a single token prompt
-    generated_ids = inference.generate(
+    generated_ids = inferencer.generate(
         params,
         initial_prompt,
         max_new_tokens=5,
