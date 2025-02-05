@@ -50,6 +50,9 @@ class Trainer:
         loss = optax.softmax_cross_entropy_with_integer_labels(logits, targets)
         return loss.mean(), logits
 
+    def train_step(self, state, batch, rng):
+        return train_step_fn(state, batch, rng, self.model, self.compute_loss)
+
     def train(self, num_steps):
         step = 0
         for batch in self.dataset:
