@@ -35,5 +35,4 @@ class Evaluator:
                 break
         avg_loss = total_loss / steps if steps > 0 else 0.0
         avg_loss = float(avg_loss)
-        print(f"Eval Loss: {avg_loss:.4f}")
         return avg_loss

@@ -67,5 +67,4 @@ class Trainer:
             elapsed = time.time() - start_time
             print(f"Step {step}: Loss = {loss:.4f}, Time = {elapsed*1000:.2f} ms")
             step += 1
-        print("Training complete.")
         return self.state
